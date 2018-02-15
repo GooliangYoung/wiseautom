@@ -23,7 +23,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      */
     private HttpServletRequest orgRequest;
 
-    private XssHttpServletRequestWrapper(HttpServletRequest request) {
+    public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
         orgRequest = request;
     }
