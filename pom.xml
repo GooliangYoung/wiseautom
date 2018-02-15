@@ -5,7 +5,7 @@
     <artifactId>wiseautom</artifactId>
     <version>${wiseautom-version}</version>
     <packaging>pom</packaging>
-    <description>wiseautom-security</description>
+    <description>wiseautom</description>
 
     <modules>
         <module>wiseautom-common</module> <!-- 公共模块 -->
@@ -343,6 +343,12 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>${freemarker-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.0.5</version>
         </dependency>
     </dependencies>
 
