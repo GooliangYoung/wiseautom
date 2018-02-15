@@ -4,19 +4,23 @@ import org.apache.poi.hssf.usermodel.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by 陈熠
- * 2017/5/25.
+ * @author GooliangYoung
  */
 public class ExportExcel<T> {
     public void exportExcel(Collection<T> dataset, OutputStream out) {
@@ -32,7 +36,6 @@ public class ExportExcel<T> {
                             OutputStream out, String pattern) {
         exportExcel("测试POI导出EXCEL文档", headers, dataset, out, pattern);
     }
-
 
 
     /**

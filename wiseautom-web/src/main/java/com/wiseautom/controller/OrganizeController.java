@@ -20,53 +20,50 @@ import java.util.Map;
 
 /**
  * 记录组织机构管理信息
- * 
- * @author chenyi
- * @email qq228112142@qq.com
- * @date 2017-11-06 17:39:31
+ *
+ * @author GooliangYoung
  */
 @Controller
 @RequestMapping("organize")
 public class OrganizeController {
-	@Autowired
-	private OrganizeService organizeService;
-	@Autowired
+    @Autowired
+    private OrganizeService organizeService;
+    @Autowired
     private SysMenuService sysMenuService;
 
-	/**
-	 * 列表
-	 */
+    /**
+     * 列表
+     */
     @ResponseBody
-	@RequestMapping("/list")
-	@RequiresPermissions("organize:list")
-	public R list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+    @RequestMapping("/list")
+    @RequiresPermissions("organize:list")
+    public R list(@RequestParam Map<String, Object> params) {
+        //查询列表数据
         Query query = new Query(params);
 
-		List<Organize> organizeList = organizeService.queryList(query);
-		int total = organizeService.queryTotal(query);
-        if (organizeList!=null&&organizeList.size()>0){
-            for (int i = 0; i < organizeList.size(); i++) {
-                if (TopMenuEnum.TopMenu.getCode().equals(organizeList.get(i).getParentOrgId())){
-                    organizeList.get(i).setParentOrgName(TopMenuEnum.TopMenu.getDesc());
-                    organizeList.get(i).setParentOrgId("-");
-                }
+        List<Organize> organizeList = organizeService.queryList(query);
+        int total = organizeService.queryTotal(query);
+        for (Organize organize : organizeList) {
+            if (TopMenuEnum.TopMenu.getCode().equals(organize.getParentOrgId())) {
+                organize.setParentOrgName(TopMenuEnum.TopMenu.getDesc());
+                organize.setParentOrgId("-");
             }
         }
 
-		PageUtils pageUtil = new PageUtils(organizeList, total, query.getLimit(), query.getPage());
-		
-		return R.ok().put("page", pageUtil);
-	}
+        PageUtils pageUtil = new PageUtils(organizeList, total, query.getLimit(), query.getPage());
+
+        return R.ok().put("page", pageUtil);
+    }
 
     /**
      * 跳转到新增页面
      **/
     @RequestMapping("/add")
     @RequiresPermissions("organize:save")
-    public String add(){
+    public String add() {
         return "organize/add.jsp";
     }
+
     /**
      * 选择菜单(添加、修改菜单)
      */
@@ -97,60 +94,61 @@ public class OrganizeController {
 
         return R.ok().put("data", ztreeBeans);
     }
+
     /**
-     *   跳转到修改页面
+     * 跳转到修改页面
      **/
     @RequestMapping("/edit/{id}")
     @RequiresPermissions("organize:update")
-    public String edit(Model model, @PathVariable("id") String id){
-		Organize organize = organizeService.queryObject(id);
-        model.addAttribute("model",organize);
+    public String edit(Model model, @PathVariable("id") String id) {
+        Organize organize = organizeService.queryObject(id);
+        model.addAttribute("model", organize);
         return "organize/edit.jsp";
     }
 
-	/**
-	 * 信息
-	 */
+    /**
+     * 信息
+     */
     @ResponseBody
     @RequestMapping("/info/{orgId}")
     @RequiresPermissions("organize:info")
-    public R info(@PathVariable("orgId") String orgId){
+    public R info(@PathVariable("orgId") String orgId) {
         Organize organize = organizeService.queryObject(orgId);
         return R.ok().put("organize", organize);
     }
 
     /**
-	 * 保存
-	 */
+     * 保存
+     */
     @ResponseBody
     @SysLog("保存记录组织机构管理信息")
-	@RequestMapping("/save")
-	@RequiresPermissions("organize:save")
-	public R save(@RequestBody Organize organize){
+    @RequestMapping("/save")
+    @RequiresPermissions("organize:save")
+    public R save(@RequestBody Organize organize) {
         //判断部门编号是否存在
-        Organize organize2  = organizeService.queryByOrgCode(organize.getOrgCode());
-        if (!StringUtil.isNullOrEmpty(organize2)){
+        Organize organize2 = organizeService.queryByOrgCode(organize.getOrgCode());
+        if (!StringUtil.isNullOrEmpty(organize2)) {
             return R.error("部门编号已存在");
         }
 
         organizeService.save(organize);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 修改
-	 */
+
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
     @ResponseBody
     @SysLog("修改记录组织机构管理信息")
-	@RequestMapping("/update")
-	@RequiresPermissions("organize:update")
-	public R update(@RequestBody Organize organize){
+    @RequestMapping("/update")
+    @RequiresPermissions("organize:update")
+    public R update(@RequestBody Organize organize) {
 
-		organizeService.update(organize);
-		
-		return R.ok();
-	}
+        organizeService.update(organize);
+
+        return R.ok();
+    }
 
     /**
      * 启用
@@ -159,11 +157,12 @@ public class OrganizeController {
     @SysLog("启用记录组织机构管理信息")
     @RequestMapping("/enable")
     @RequiresPermissions("organize:update")
-    public R enable(@RequestBody String[] ids){
-        String stateValue=StateEnum.ENABLE.getCode();
-		organizeService.updateState(ids,stateValue);
+    public R enable(@RequestBody String[] ids) {
+        String stateValue = StateEnum.ENABLE.getCode();
+        organizeService.updateState(ids, stateValue);
         return R.ok();
     }
+
     /**
      * 禁用
      */
@@ -171,26 +170,26 @@ public class OrganizeController {
     @SysLog("禁用记录组织机构管理信息")
     @RequestMapping("/limit")
     @RequiresPermissions("organize:update")
-    public R limit(@RequestBody String[] ids){
-        String stateValue=StateEnum.LIMIT.getCode();
-		organizeService.updateState(ids,stateValue);
+    public R limit(@RequestBody String[] ids) {
+        String stateValue = StateEnum.LIMIT.getCode();
+        organizeService.updateState(ids, stateValue);
         return R.ok();
     }
 
-	/**
-	 * 删除
-	 */
+    /**
+     * 删除
+     */
     @ResponseBody
     @SysLog("删除记录组织机构管理信息")
-	@RequestMapping("/delete")
-	@RequiresPermissions("organize:delete")
-	public R delete(@RequestBody String[] orgIds){
+    @RequestMapping("/delete")
+    @RequiresPermissions("organize:delete")
+    public R delete(@RequestBody String[] orgIds) {
 
-        for (String orgId : orgIds){
+        for (String orgId : orgIds) {
             organizeService.delete(orgId);
         }
-		
-		return R.ok();
-	}
-	
+
+        return R.ok();
+    }
+
 }
