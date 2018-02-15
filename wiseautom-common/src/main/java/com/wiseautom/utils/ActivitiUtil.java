@@ -16,12 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 陈熠
- * 2017/10/20.
+ * @author GooliangYoung
  */
 public class ActivitiUtil {
 
-    public static ProcessEngine getEngine(){
+    public static ProcessEngine getEngine() {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         return processEngine;
     }
@@ -32,7 +31,8 @@ public class ActivitiUtil {
     private static TaskService taskService = processEngine.getTaskService();
     private static RepositoryService repositoryService = processEngine.getRepositoryService();
     private static HistoryService historyService = processEngine.getHistoryService();
-    public static void TaskRollBack(String taskId){
+
+    public static void TaskRollBack(String taskId) {
         try {
             Map<String, Object> variables;
             // 取得当前任务
@@ -56,7 +56,7 @@ public class ActivitiUtil {
             if (definition == null) {
 
                 //log.error("流程定义未找到");
-                return ;
+                return;
             }
             // 取得上一步活动
             ActivityImpl currActivity = ((ProcessDefinitionImpl) definition)
@@ -100,10 +100,10 @@ public class ActivitiUtil {
             }
 
 
-            return ;
+            return;
         } catch (Exception e) {
 
-            return ;
+            return;
         }
     }
 }

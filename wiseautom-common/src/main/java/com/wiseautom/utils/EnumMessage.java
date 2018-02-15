@@ -6,5 +6,6 @@ package com.wiseautom.utils;
  */
 public interface EnumMessage {
     String getCode();
-     String getValue();
+
+    String getValue();
 }

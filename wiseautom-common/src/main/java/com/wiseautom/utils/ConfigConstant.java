@@ -2,9 +2,8 @@ package com.wiseautom.utils;
 
 /**
  * 系统参数相关Key
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017-03-26 10:33
+ *
+ * @author GooliangYoung
  */
 public class ConfigConstant {
     /**

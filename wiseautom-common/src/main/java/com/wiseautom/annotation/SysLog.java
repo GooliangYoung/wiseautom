@@ -8,15 +8,13 @@ import java.lang.annotation.Target;
 
 /**
  * 系统日志注解
- * 
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017年3月8日 上午10:19:56
+ *
+ * @author GooliangYoung
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface SysLog {
 
-	String value() default "";
+    String value() default "";
 }

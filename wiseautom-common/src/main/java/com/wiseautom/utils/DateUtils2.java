@@ -141,7 +141,7 @@ public class DateUtils2 extends org.apache.commons.lang3.time.DateUtils {
      */
     public static long pastDays(Date date) {
         long t = new Date().getTime() - date.getTime();
-        System.out.println("=================>"+t / (24 * 60 * 60 * 1000));
+        System.out.println("=================>" + t / (24 * 60 * 60 * 1000));
         return t / (24 * 60 * 60 * 1000);
     }
 
@@ -303,22 +303,21 @@ public class DateUtils2 extends org.apache.commons.lang3.time.DateUtils {
     }*/
 
 
-    public static Long getCompareTwoDateTime(String startDate, String endDate){
-        try{
+    public static Long getCompareTwoDateTime(String startDate, String endDate) {
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date startDateForm = sdf.parse(startDate);
             Date endDateFrom = sdf.parse(endDate);
-            Long num = (endDateFrom.getTime() - startDateForm.getTime())/1000/60/60/24;
+            Long num = (endDateFrom.getTime() - startDateForm.getTime()) / 1000 / 60 / 60 / 24;
             return num;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
     public static void main(String[] args) {
-        System.out.println(formatDateTime(new Date(),ymdhsChinese));
+        System.out.println(formatDateTime(new Date(), ymdhsChinese));
     }
-
 
 
 }

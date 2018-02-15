@@ -1,16 +1,18 @@
 package com.wiseautom.enumresource;
 
 /**
- * Created by chenyi on 2016/12/7.
- * 顶级菜单
+ * @author GooliangYoung
  */
 public enum TopMenuEnum {
-    TopMenu("0","顶级菜单"),
-    TopOrg("0","顶级部门");
+    /**
+     * 菜单
+     */
+    TopMenu("0", "顶级菜单"),
+    TopOrg("0", "顶级部门");
     private final String desc;
     private final String code;
 
-    private TopMenuEnum(String code, String desc) {
+    TopMenuEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }

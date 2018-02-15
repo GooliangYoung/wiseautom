@@ -12,83 +12,86 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author GooliangYoung
+ */
 @Service("sysConfigService")
 public class SysConfigServiceImpl implements SysConfigService {
-	@Autowired
-	private SysConfigDao sysConfigDao;
-	
-	@Override
-	public void save(SysConfig config) {
-		sysConfigDao.save(config);
-	}
+    @Autowired
+    private SysConfigDao sysConfigDao;
 
-	@Override
-	public void update(SysConfig config) {
-		sysConfigDao.update(config);
-	}
+    @Override
+    public void save(SysConfig config) {
+        sysConfigDao.save(config);
+    }
 
-	@Override
-	public void updateValueByKey(String key, String value) {
-		sysConfigDao.updateValueByKey(key, value);
-	}
+    @Override
+    public void update(SysConfig config) {
+        sysConfigDao.update(config);
+    }
 
-	@Override
-	public void deleteBatch(Long[] ids) {
-		sysConfigDao.deleteBatch(ids);
-	}
+    @Override
+    public void updateValueByKey(String key, String value) {
+        sysConfigDao.updateValueByKey(key, value);
+    }
 
-	@Override
-	public List<SysConfig> queryList(Map<String, Object> map) {
-		return sysConfigDao.queryList(map);
-	}
+    @Override
+    public void deleteBatch(Long[] ids) {
+        sysConfigDao.deleteBatch(ids);
+    }
 
-	@Override
-	public int queryTotal(Map<String, Object> map) {
-		return sysConfigDao.queryTotal(map);
-	}
+    @Override
+    public List<SysConfig> queryList(Map<String, Object> map) {
+        return sysConfigDao.queryList(map);
+    }
 
-	@Override
-	public SysConfig queryObject(Long id) {
-		return sysConfigDao.queryObject(id);
-	}
+    @Override
+    public int queryTotal(Map<String, Object> map) {
+        return sysConfigDao.queryTotal(map);
+    }
 
-	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = sysConfigDao.queryByKey(key);
-		if(StringUtils.isBlank(value)){
-			return defaultValue;
-		}
-		return value;
-	}
-	
-	@Override
-	public <T> T getConfigObject(String key, Class<T> clazz) {
-		String value = getValue(key, null);
-		if(StringUtils.isNotBlank(value)){
-			return JSON.parseObject(value, clazz);
-		}
+    @Override
+    public SysConfig queryObject(Long id) {
+        return sysConfigDao.queryObject(id);
+    }
 
-		try {
-			return clazz.newInstance();
-		} catch (Exception e) {
-			throw new RRException("获取参数失败");
-		}
-	}
+    @Override
+    public String getValue(String key, String defaultValue) {
+        String value = sysConfigDao.queryByKey(key);
+        if (StringUtils.isBlank(value)) {
+            return defaultValue;
+        }
+        return value;
+    }
 
-	@Override
-	public List<SysConfig> findRule(Map<String, Object> params) {
-		return sysConfigDao.findRule(params);
-	}
+    @Override
+    public <T> T getConfigObject(String key, Class<T> clazz) {
+        String value = getValue(key, null);
+        if (StringUtils.isNotBlank(value)) {
+            return JSON.parseObject(value, clazz);
+        }
 
-	@Override
-	public void setRule(SysConfig config) {
-		sysConfigDao.setRule(config);
-	}
+        try {
+            return clazz.newInstance();
+        } catch (Exception e) {
+            throw new RRException("获取参数失败");
+        }
+    }
 
-	@Override
-	public List<SysConfig> findByCode(String code) {
-		return sysConfigDao.findByCode(code);
-	}
+    @Override
+    public List<SysConfig> findRule(Map<String, Object> params) {
+        return sysConfigDao.findRule(params);
+    }
+
+    @Override
+    public void setRule(SysConfig config) {
+        sysConfigDao.setRule(config);
+    }
+
+    @Override
+    public List<SysConfig> findByCode(String code) {
+        return sysConfigDao.findByCode(code);
+    }
 
 
 }

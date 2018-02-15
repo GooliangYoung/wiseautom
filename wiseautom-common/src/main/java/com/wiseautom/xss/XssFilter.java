@@ -6,25 +6,25 @@ import java.io.IOException;
 
 /**
  * XSS过滤
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017-04-01 10:20
+ *
+ * @author GooliangYoung
  */
 public class XssFilter implements Filter {
 
-	@Override
-	public void init(FilterConfig config) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig config) {
+    }
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(
-				(HttpServletRequest) request);
-		chain.doFilter(xssRequest, response);
-	}
+        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(
+                (HttpServletRequest) request);
+        chain.doFilter(xssRequest, response);
+    }
 
-	@Override
-	public void destroy() {
-	}
+    @Override
+    public void destroy() {
+    }
 
 }

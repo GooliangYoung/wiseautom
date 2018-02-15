@@ -1,15 +1,17 @@
 package com.wiseautom.enumresource;
 
 /**
- * Created by chenyi on 2016/12/7.
- * 顶级菜单
+ * @author GooliangYoung
  */
 public enum TopCatEnum {
-    TopCat("0","顶级分类");
+    /**
+     * 等级
+     */
+    TopCat("0", "顶级分类");
     private final String desc;
     private final String code;
 
-    private TopCatEnum(String code, String desc) {
+    TopCatEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
