@@ -7,26 +7,24 @@ import java.util.Map;
 
 /**
  * 地产附件表
- * 
- * @author chenyi
- * @email qq228112142@qq.com
- * @date 2017-11-17 11:52:01
+ *
+ * @author GooliangYoung
  */
 public interface FileService {
-	
-	File get(String id);
-	
-	List<File> getList(Map<String, Object> map);
-	
-	int getCount(Map<String, Object> map);
-	
-	void save(File file);
-	
-	void update(File file);
-	
-	void delete(String id);
-	
-	void deleteBatch(String[] ids);
+
+    File get(String id);
+
+    List<File> getList(Map<String, Object> map);
+
+    int getCount(Map<String, Object> map);
+
+    void save(File file);
+
+    void update(File file);
+
+    void delete(String id);
+
+    void deleteBatch(String[] ids);
 
     void updateState(String[] ids, String stateValue);
 
@@ -34,7 +32,7 @@ public interface FileService {
 
     List<File> getFileList(String imgUUID);
 
-	List<File> getFileListByUUID(List<String> uuidList);
+    List<File> getFileListByUUID(List<String> uuidList);
 
     void deleteByRelationId(String relationId);
 }

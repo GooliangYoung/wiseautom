@@ -1,8 +1,7 @@
 package com.wiseautom.vo;
 
 /**
- * @author chenyi
- * @date 2018/1/9 10:12
+ * @author GooliangYoung
  */
 public class Login {
     private String username;

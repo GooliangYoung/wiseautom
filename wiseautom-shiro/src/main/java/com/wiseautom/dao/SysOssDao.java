@@ -4,11 +4,9 @@ import com.wiseautom.entity.SysOss;
 
 /**
  * oss配置
- * 
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017-12-13 10:07:04
+ *
+ * @author GooliangYoung
  */
 public interface SysOssDao extends BaseDao<SysOss> {
-	
+
 }

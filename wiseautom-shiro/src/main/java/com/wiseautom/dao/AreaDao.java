@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
- * 
- * @author chenyi
- * @email qq228112142@qq.com
- * @date 2017-08-11 10:52:35
+ * @author GooliangYoung
  */
 public interface AreaDao extends BaseDao<Area> {
 

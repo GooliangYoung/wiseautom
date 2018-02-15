@@ -20,8 +20,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Created by 陈熠
- * 2017/7/19.
+ * @author GooliangYoung
  */
 @RestController
 @RequestMapping("/getData")
@@ -34,10 +33,7 @@ public class GetDataController {
     private SysOssService ossService;
 
     /**
-     * @param
-     * @author chenyi
-     * @Description 通过枚举获取数据列表
-     * @date date 2017-7-20
+     * 通过枚举获取数据列表
      */
     @ResponseBody
     @RequestMapping("/getEnum")
@@ -64,10 +60,10 @@ public class GetDataController {
     }
 
     /**
-     * @param
-     * @author chenyi
-     * @Description 通过表码获取数据列表
-     * @date date 2017-7-20
+     * 通过表码获取数据列表
+     *
+     * @param params params
+     * @return r
      */
     @ResponseBody
     @RequestMapping("/getCodeValues")
@@ -80,10 +76,11 @@ public class GetDataController {
     }
 
     /**
-     * @param
-     * @author chenyi
-     * @Description oss文件上传
-     * @date date 2017-7-20
+     * oss文件上传
+     *
+     * @param fileName    fileName
+     * @param inputStream is
+     * @return str
      */
     public String uploadImage(String fileName, InputStream inputStream) {
         //获取oss
@@ -103,14 +100,16 @@ public class GetDataController {
                 ossClient.createBucket(bucket);
             }
 
-            ObjectMetadata objectMeta = new ObjectMetadata();//oss属性设置
-            //objectMeta.setContentLength(inputStream.getSize());//标记长度
-            objectMeta.setContentType("image/jpeg");// 可以在metadata中标记文件类型
+            //oss属性设置
+            ObjectMetadata objectMeta = new ObjectMetadata();
+            // 可以在metadata中标记文件类型
+            objectMeta.setContentType("image/jpeg");
             try {
-                //获取上传的图片文件名
-                Long nanoTime = System.nanoTime();// 防止文件被覆盖，以纳秒生成图片名
-                String _extName = fileName.substring(fileName.indexOf("."));//获取扩展名
-                fileName = nanoTime + _extName;
+                //获取上传的图片文件名, 防止文件被覆盖，以纳秒生成图片名
+                Long nanoTime = System.nanoTime();
+                //获取扩展名
+                String extName = fileName.substring(fileName.indexOf("."));
+                fileName = nanoTime + extName;
                 fileName = DateUtil.getYmd() + "/" + fileName + "/" + fileNameBak;
                 ossClient.putObject(bucket, fileName, inputStream, objectMeta);
                 resultImgUrl += fileName;
@@ -123,8 +122,6 @@ public class GetDataController {
             return resultImgUrl;
         }
         throw new RRException("未启用oss配置");
-
-
     }
 
     /**
@@ -136,15 +133,12 @@ public class GetDataController {
         if (file.isEmpty()) {
             throw new RRException("上传文件不能为空");
         }
-        String fileName = file.getOriginalFilename();
-        String _extName = fileName.substring(fileName.indexOf("."), fileName.length());//获取扩展名
 
         if (file.getSize() > 1 * 1024 * 1024) {
             throw new RRException("图片不能大于1M");
         }
         //上传文件
         String url = uploadImage(file.getOriginalFilename(), file.getInputStream());
-        //String url = "/statics/img/timg.jpg";
         return R.ok().put("url", url);
     }
 
@@ -159,7 +153,8 @@ public class GetDataController {
             throw new RRException("上传文件不能为空");
         }
         String fileName = file[0].getOriginalFilename();
-        String _extName = fileName.substring(fileName.indexOf("."), fileName.length());//获取扩展名
+        //获取扩展名
+        String extName = fileName.substring(fileName.indexOf("."), fileName.length());
         Long size = file[0].getSize();
         if (size > 1 * 1024 * 1024) {
             throw new RRException("图片不能大于1M");
@@ -181,7 +176,7 @@ public class GetDataController {
         if (isPicture) {
             uploadFile.setFileType("image");
         } else {
-            uploadFile.setFileType(_extName);
+            uploadFile.setFileType(extName);
         }
         fileService.save(uploadFile);
 
@@ -204,7 +199,7 @@ public class GetDataController {
      */
     @ResponseBody
     @RequestMapping("/deleteFile/{fileId}")
-    public R uploadFile(@PathVariable("fileId") String fileId) throws Exception {
+    public R uploadFile(@PathVariable("fileId") String fileId) {
         fileService.delete(fileId);
         return R.ok();
     }
@@ -214,10 +209,8 @@ public class GetDataController {
      */
     @ResponseBody
     @RequestMapping("/deleteByRelationId/{relationId}")
-    public R deleteByRelationId(@PathVariable("relationId") String relationId) throws Exception {
+    public R deleteByRelationId(@PathVariable("relationId") String relationId) {
         fileService.deleteByRelationId(relationId);
         return R.ok();
     }
-
-
 }

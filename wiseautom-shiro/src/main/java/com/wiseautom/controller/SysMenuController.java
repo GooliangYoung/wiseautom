@@ -19,10 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @param
- * @author chenyi
- * @Description 系统菜单
- * @date 2017/6/27 17:28
+ * @author GooliangYoung
  **/
 @Controller
 @RequestMapping("/sys/menu")
@@ -119,7 +116,7 @@ public class SysMenuController extends AbstractController {
 
         //只有超级管理员，才能查看所有管理员列表
         if (getUserId() == Constant.SUPER_ADMIN) {
-            menuList = sysMenuService.queryList(new HashMap<String, Object>());
+            menuList = sysMenuService.queryList(new HashMap<>());
         } else {
             menuList = sysMenuService.queryUserList(getUserId());
         }
@@ -139,7 +136,7 @@ public class SysMenuController extends AbstractController {
 
         //只有超级管理员，才能查看所有管理员列表
         if (getUserId() == Constant.SUPER_ADMIN) {
-            menuList = sysMenuService.queryList(new HashMap<String, Object>());
+            menuList = sysMenuService.queryList(new HashMap<>());
         } else {
             menuList = sysMenuService.queryUserList(getUserId());
         }
@@ -169,10 +166,7 @@ public class SysMenuController extends AbstractController {
     }
 
     /**
-     * @param
-     * @author chenyi
-     * @Description 跳转到新增页面
-     * @date 2017/6/27 11:17
+     * 跳转到新增页面
      **/
     @RequestMapping("/add")
     @RequiresPermissions("sys:menu:save")
@@ -181,10 +175,7 @@ public class SysMenuController extends AbstractController {
     }
 
     /**
-     * @param
-     * @author chenyi
-     * @Description 跳转到修改页面
-     * @date 2017/6/27 11:17
+     * 跳转到修改页面
      **/
     @RequestMapping("/edit/{id}")
     @RequiresPermissions("sys:menu:update")
@@ -240,7 +231,7 @@ public class SysMenuController extends AbstractController {
     @RequiresPermissions("sys:menu:delete")
     public R delete(@RequestBody Long[] menuIds) {
         for (Long menuId : menuIds) {
-            if (menuId.longValue() <= 30) {
+            if (menuId <= 30L) {
                 return R.error("系统菜单，不能删除");
             }
         }
@@ -300,7 +291,6 @@ public class SysMenuController extends AbstractController {
             if (parentType != Constant.MenuType.MENU.getValue()) {
                 throw new RRException("上级菜单只能为菜单类型");
             }
-            return;
         }
     }
 }

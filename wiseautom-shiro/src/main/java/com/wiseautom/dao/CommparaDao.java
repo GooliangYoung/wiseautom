@@ -8,10 +8,8 @@ import java.util.Map;
 
 /**
  * 字典管理
- * 
- * @author chenyi
- * @email qq228112142@qq.com
- * @date 2017-11-06 14:49:28
+ *
+ * @author GooliangYoung
  */
 public interface CommparaDao extends BaseDao<Commpara> {
 

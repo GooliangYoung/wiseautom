@@ -1,8 +1,7 @@
 package com.wiseautom.vo;
 
 /**
- * Created by 陈熠
- * 2017/12/2.
+ * @author GooliangYoung
  */
 public class AreaVo {
     private String id;

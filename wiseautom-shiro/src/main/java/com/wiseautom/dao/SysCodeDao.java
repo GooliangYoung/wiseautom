@@ -7,10 +7,8 @@ import java.util.Map;
 
 /**
  * 表码信息表
- * 
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017-06-29 10:46:14
+ *
+ * @author GooliangYoung
  */
 public interface SysCodeDao extends BaseDao<SysCode> {
 

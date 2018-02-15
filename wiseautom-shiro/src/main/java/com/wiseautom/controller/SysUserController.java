@@ -70,7 +70,7 @@ public class SysUserController extends AbstractController {
 	}
 	/**
 	 * @author chenyi
-	 * @Description  跳转到修改页面
+	 * @description  跳转到修改页面
 	 * @param
 	 * @date 2017/6/27 11:17
 	 **/

@@ -7,19 +7,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Controller公共组件
- * 
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2016年11月9日 下午9:42:26
+ *
+ * @author GooliangYoung
  */
 public abstract class AbstractController {
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-	
-	protected SysUser getUser() {
-		return ShiroUtils.getUserEntity();
-	}
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected Long getUserId() {
-		return getUser().getUserId();
-	}
+    protected SysUser getUser() {
+        return ShiroUtils.getUserEntity();
+    }
+
+    protected Long getUserId() {
+        return getUser().getUserId();
+    }
 }

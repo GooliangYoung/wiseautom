@@ -1,11 +1,11 @@
 package com.wiseautom.controller;
 
 import com.wiseautom.entity.SysLog;
+import com.wiseautom.service.SysLogService;
 import com.wiseautom.utils.PageUtils;
 import com.wiseautom.utils.Query;
 import com.wiseautom.utils.R;
 import com.wiseautom.validator.ValidatorUtils;
-import com.wiseautom.service.SysLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * 系统日志
  *
- * @author chenyi
- * @email 228112142@qq.com
- * @date 2017-03-08 10:40:56
+ * @author GooliangYoung
  */
 @Controller
 @RequestMapping("/sys/log")
@@ -50,15 +47,12 @@ public class SysLogController {
 
 
     /**
-     * @author chenyi
-     * @Description 新增
-     * @param
-     * @date 2017/6/27 11:17
+     * 新增
      **/
     @ResponseBody
     @RequestMapping("/save")
     @RequiresPermissions("sys:log:add")
-    public R save(@RequestBody SysLog syslog){
+    public R save(@RequestBody SysLog syslog) {
         ValidatorUtils.validateEntity(syslog);
         syslog.setCreateDate(new Date());
         syslog.setIp("1231454685");
@@ -69,54 +63,46 @@ public class SysLogController {
 
         return R.ok();
     }
-   /**
-    * @author chenyi
-    * @Description 修改
-    * @param
-    * @date 2017/6/27 11:17
-    **/
+
+    /**
+     * 修改
+     **/
     @ResponseBody
     @RequestMapping("/update")
     @RequiresPermissions("sys:log:edit")
-    public R update(@RequestBody SysLog syslog){
+    public R update(@RequestBody SysLog syslog) {
         ValidatorUtils.validateEntity(syslog);
         sysLogService.update(syslog);
         return R.ok();
     }
+
     /**
-     * @author chenyi
-     * @Description 跳转到新增页面
-     * @param
-     * @date 2017/6/27 11:17
+     * 跳转到新增页面
      **/
     @RequestMapping("/add")
     @RequiresPermissions("sys:log:add")
-    public String add(){
+    public String add() {
         return "syslog/add.jsp";
     }
+
     /**
-     * @author chenyi
-     * @Description  跳转到修改页面
-     * @param
-     * @date 2017/6/27 11:17
+     * 跳转到修改页面
      **/
     @RequestMapping("/edit/{id}")
     @RequiresPermissions("sys:log:edit")
-    public String edit(HttpServletRequest request, Model model,@PathVariable("id") Long id){
+    public String edit(HttpServletRequest request, Model model, @PathVariable("id") Long id) {
         SysLog sysLog = sysLogService.queryObject(id);
         model.addAttribute("model", sysLog);
         return "syslog/edit.jsp";
     }
+
     /**
-     * @author chenyi
-     * @Description 删除
-     * @param
-     * @date 2017/6/27 11:37
+     * 删除
      **/
     @ResponseBody
     @RequestMapping("/deleteBatch")
     @RequiresPermissions("sys:log:delete")
-    public R deleteBatch(@RequestBody Long[] ids){
+    public R deleteBatch(@RequestBody Long[] ids) {
         sysLogService.deleteBatch(ids);
         return R.ok();
     }

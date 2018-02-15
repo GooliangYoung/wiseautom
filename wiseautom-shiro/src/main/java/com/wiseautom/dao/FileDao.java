@@ -6,10 +6,8 @@ import java.util.List;
 
 /**
  * 地产附件表
- * 
- * @author chenyi
- * @email qq228112142@qq.com
- * @date 2017-11-17 11:52:01
+ *
+ * @author GooliangYoung
  */
 public interface FileDao extends BaseDao<File> {
 
