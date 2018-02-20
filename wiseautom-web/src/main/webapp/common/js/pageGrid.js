@@ -35,7 +35,7 @@
         page: 1,
         sidx: '',
         order: 'desc',
-        init:true,
+        init: true,
         _: new Date().getTime()
     };
     /*默认配置*/
@@ -127,8 +127,8 @@
                     , count: R.page ? R.page.totalCount : 0
                     , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
                     , jump: function (obj) {
-                        var index=Loading.open(1,false);
-                        PageGrid.toPage(R,obj, $grid, url);
+                        var index = Loading.open(1, false);
+                        PageGrid.toPage(R, obj, $grid, url);
                         Loading.close(index);
                     }
                 });
@@ -147,7 +147,7 @@
             _grid.append("<tbody><tbody/>");
 
             for (var i = 0; i < _th.length; i++) {
-                var _param=eval("(" + $(_th[i]).attr("param") + ")");
+                var _param = eval("(" + $(_th[i]).attr("param") + ")");
                 //判断是否有隐藏的列
                 var isHide = _param.hide || "false";
                 if (isHide == "true") {
@@ -155,13 +155,13 @@
                 }
 
                 //是否开启排序功能
-                var sort=_param.sort||"false";
-                var _name=_param.name;
-                var thHtml=$(_th[i]).text();
-                if(sort=="true"){
-                    var _order=defaultParam.sidx===_name?defaultParam.order:"desc";
-                    $(_th[i]).html([thHtml,'<i class="fa fa-sort-'+_order+'"  style="position: absolute;right: 5px;"></i>'].join(""));
-                    $(_th[i]).css("cursor","pointer");
+                var sort = _param.sort || "false";
+                var _name = _param.name;
+                var thHtml = $(_th[i]).text();
+                if (sort == "true") {
+                    var _order = defaultParam.sidx === _name ? defaultParam.order : "desc";
+                    $(_th[i]).html([thHtml, '<i class="fa fa-sort-' + _order + '"  style="position: absolute;right: 5px;"></i>'].join(""));
+                    $(_th[i]).css("cursor", "pointer");
                 }
             }
 
@@ -183,7 +183,7 @@
             var attr = new Array();
             for (var i = 0; i < data.length; i++) {
                 //原始数据
-                var rowdata=$.extend(true,[], data[i]);
+                var rowdata = $.extend(true, [], data[i]);
                 //为数据创建tr
                 $(_grid.find("tbody")).append("<tr></tr>");
                 //获取新建的tr
@@ -213,7 +213,7 @@
                         var tdContent = "<span></span>"
                         for (var k = 0; k < btns.length; k++) {
                             var func = eval((btns[k]));
-                            tdContent = tdContent.replace("</span>", func(rowdata,data[i]) + "</span>");
+                            tdContent = tdContent.replace("</span>", func(rowdata, data[i]) + "</span>");
                         }
 
                         if (hide == "true") {
@@ -247,7 +247,7 @@
                                 if (render != null && render != undefined && render != "") {
 
                                     var func = eval((render));
-                                    data[i][key] = func(rowdata,data[i], i, data[i][key]);
+                                    data[i][key] = func(rowdata, data[i], i, data[i][key]);
                                 }
                                 var value = data[i][key] || "";
                                 //如果是主键并且主键不为空，设置主键值
@@ -295,16 +295,16 @@
 
         },
         /**跳到分页页面 by chenyi 2017/6/22*/
-        toPage: function (R,obj, $grid, url) {
+        toPage: function (R, obj, $grid, url) {
             defaultParam.page = obj.curr;
             /**增加每页显示条数 by chenyi 2017/08/21*/
             defaultParam.limit = obj.limit;
             /**解决列表页两次请求后台问题 by chenyi 2018/01/02*/
             //是否是首次加载列表
-            if(!defaultParam.init){
+            if (!defaultParam.init) {
                 R = PageGrid.getData(url);
             }
-            defaultParam.init=false;
+            defaultParam.init = false;
             // //渲染表格数据
             PageGrid.renderData(R, $grid, pageProps);
         },
@@ -348,21 +348,21 @@
                 });
 
                 var filter = pageProps.filter || "choose";
-                form.on('checkbox('+filter+')', function (data) {
+                form.on('checkbox(' + filter + ')', function (data) {
                     var child = $(data.elem).parents('table').find('[type="checkbox"]');
-                    var allChoose=$(data.elem).parents('table').find("[lay-filter='allChoose']");
-                    var flag=true;
+                    var allChoose = $(data.elem).parents('table').find("[lay-filter='allChoose']");
+                    var flag = true;
                     child.each(function (index, item) {
-                        if(index>0&&item.checked == false){
+                        if (index > 0 && item.checked == false) {
                             allChoose.each(function (index2, item2) {
                                 item2.checked = false;
                             });
-                            flag=false;
+                            flag = false;
                         }
 
                     });
 
-                    if(flag){
+                    if (flag) {
                         allChoose.each(function (index, item) {
                             item.checked = true;
                         });
@@ -373,23 +373,23 @@
             });
         }
         /**表格排序 by chenyi 2018/01/03*/
-        ,sort:function () {
-            $("[cyType='pageGrid']").on("click","th",function () {
-                var $grid=$(this).parents("table");
-                var _param=eval("(" + $(this).attr("param") + ")");
+        , sort: function () {
+            $("[cyType='pageGrid']").on("click", "th", function () {
+                var $grid = $(this).parents("table");
+                var _param = eval("(" + $(this).attr("param") + ")");
 
-                if($(this).find("i").hasClass("fa-sort-asc")){
-                    $(this).find("i").attr("class","fa fa-sort-desc");
-                    defaultParam.sidx=_param.name;
-                    defaultParam.order="desc";
+                if ($(this).find("i").hasClass("fa-sort-asc")) {
+                    $(this).find("i").attr("class", "fa fa-sort-desc");
+                    defaultParam.sidx = _param.name;
+                    defaultParam.order = "desc";
                     var R = PageGrid.getData(pageProps.url);
                     PageGrid.renderData(R, $grid, pageProps);
                     return;
                 }
-                if($(this).find("i").hasClass("fa-sort-desc")){
-                    $(this).find("i").attr("class","fa fa-sort-asc");
-                    defaultParam.sidx=_param.name;
-                    defaultParam.order="asc";
+                if ($(this).find("i").hasClass("fa-sort-desc")) {
+                    $(this).find("i").attr("class", "fa fa-sort-asc");
+                    defaultParam.sidx = _param.name;
+                    defaultParam.order = "asc";
                     var R = PageGrid.getData(pageProps.url);
                     PageGrid.renderData(R, $grid, pageProps);
                     return;

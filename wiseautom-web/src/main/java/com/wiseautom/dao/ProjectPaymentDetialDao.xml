@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wiseautom.dao.ProjectPaymentDetialDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.wiseautom.entity.ProjectPaymentDetial" id="projectPaymentDetialMap">
+        <result property="objId" column="obj_id"/>
+        <result property="projectId" column="project_id"/>
+        <result property="paymentMoney" column="payment_money"/>
+        <result property="paymentMoneyCn" column="payment_money_cn"/>
+        <result property="surplusMoney" column="surplus_money"/>
+        <result property="paymentDate" column="payment_date"/>
+    </resultMap>
+
+    <select id="get" resultType="com.wiseautom.entity.ProjectPaymentDetial">
+		select * from wam_project_payment_detial where obj_id = #{value}
+	</select>
+
+    <select id="getList" resultType="com.wiseautom.entity.ProjectPaymentDetial">
+        SELECT
+        t.*, a.project_name
+        FROM
+        wam_project_payment_detial t
+        LEFT JOIN wam_project_manage a ON t.project_id = a.obj_id
+        <include refid="where_clause"/>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by obj_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(*) from wam_project_payment_detial t
+        <include refid="where_clause"/>
+    </select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="objId != null and objId != ''">and t.obj_id = #{objId}</if>
+            <if test="objIdVague != null and objIdVague != ''">and t.obj_id like concat('%',#{objIdVague},'%')</if>
+            <if test="projectId != null and projectId != ''">and t.project_id = #{projectId}</if>
+            <if test="projectIdVague != null and projectIdVague != ''">and t.project_id like
+                concat('%',#{projectIdVague},'%')
+            </if>
+            <if test="paymentMoney != null and paymentMoney != ''">and t.payment_money = #{paymentMoney}</if>
+            <if test="paymentMoneyVague != null and paymentMoneyVague != ''">and t.payment_money like
+                concat('%',#{paymentMoneyVague},'%')
+            </if>
+            <if test="paymentMoneyCn != null and paymentMoneyCn != ''">and t.payment_money_cn = #{paymentMoneyCn}</if>
+            <if test="paymentMoneyCnVague != null and paymentMoneyCnVague != ''">and t.payment_money_cn like
+                concat('%',#{paymentMoneyCnVague},'%')
+            </if>
+            <if test="surplusMoney != null and surplusMoney != ''">and t.surplus_money = #{surplusMoney}</if>
+            <if test="surplusMoneyVague != null and surplusMoneyVague != ''">and t.surplus_money like
+                concat('%',#{surplusMoneyVague},'%')
+            </if>
+            <if test="paymentDate != null and paymentDate != ''">and t.payment_date = #{paymentDate}</if>
+            <if test="paymentDateVague != null and paymentDateVague != ''">and t.payment_date like
+                concat('%',#{paymentDateVague},'%')
+            </if>
+        </where>
+    </sql>
+
+    <insert id="save" parameterType="com.wiseautom.entity.ProjectPaymentDetial">
+		insert into wam_project_payment_detial
+		(
+			`obj_id`, 
+			`project_id`, 
+			`payment_money`, 
+			`payment_money_cn`, 
+			`surplus_money`, 
+			`payment_date`
+		)
+		values
+		(
+			#{objId}, 
+			#{projectId}, 
+			#{paymentMoney}, 
+			#{paymentMoneyCn}, 
+			#{surplusMoney}, 
+			#{paymentDate}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.wiseautom.entity.ProjectPaymentDetial">
+        update wam_project_payment_detial
+        <set>
+            <if test="projectId != null">`project_id` = #{projectId},</if>
+            <if test="paymentMoney != null">`payment_money` = #{paymentMoney},</if>
+            <if test="paymentMoneyCn != null">`payment_money_cn` = #{paymentMoneyCn},</if>
+            <if test="surplusMoney != null">`surplus_money` = #{surplusMoney},</if>
+            <if test="paymentDate != null">`payment_date` = #{paymentDate}</if>
+        </set>
+        where obj_id = #{objId}
+    </update>
+
+    <delete id="delete">
+		delete from wam_project_payment_detial where obj_id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from wam_project_payment_detial where obj_id in
+        <foreach item="objId" collection="array" open="(" separator="," close=")">
+            #{objId}
+        </foreach>
+    </delete>
+
+</mapper>

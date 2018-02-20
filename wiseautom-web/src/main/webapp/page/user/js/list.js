@@ -1,7 +1,3 @@
-/**
- * Created by 陈熠 on 2017/6/23.
- *  email   :  228112142@qq.com
- */
 /**跳转到添加页面*/
 function add(url) {
     //$("body").load(url);
@@ -16,6 +12,7 @@ function add(url) {
         content: url
     });
 }
+
 /**跳转到修改页面*/
 function edit(table_id, url) {
     var id = getSelectedRow(table_id, url);
@@ -31,6 +28,7 @@ function edit(table_id, url) {
         });
     }
 }
+
 /**删除*/
 function deleteBatch(table_id, url) {
     //获取选中的id
@@ -58,9 +56,7 @@ function deleteBatch(table_id, url) {
                 }
             });
         });
-
     }
-
 }
 
 function initPassword(table_id, url) {
@@ -89,31 +85,28 @@ function initPassword(table_id, url) {
                 }
             });
         });
-
     }
-
 }
+
 //数据渲染对象
 var Render = {
     /**
-     *  Created by 陈熠 on 2017/6/22
-     *  email  ：228112142@qq.com
      *  rowdata：当前行数据
      *  index  ：当前第几行
      *  value  ：当前渲染列的值
      */
     //渲染状态列
-    customState: function (rowdata,renderData, index, value) {
-        if(value == "正常"){
-            return '<span style="color:green">'+value+'</span>';
+    customState: function (rowdata, renderData, index, value) {
+        if (value == "正常") {
+            return '<span style="color:green">' + value + '</span>';
         }
-        if(value == "禁用"){
-            return '<span style="color:red">'+value+'</span>';
+        if (value == "禁用") {
+            return '<span style="color:red">' + value + '</span>';
         }
         return value;
     },
     //渲染操作方法列
-    customIcon: function (rowdata,renderData, index, value) {
+    customIcon: function (rowdata, renderData, index, value) {
         if (value == "" || value == null) {
             return "";
         }

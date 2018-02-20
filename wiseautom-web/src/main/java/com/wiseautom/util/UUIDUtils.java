@@ -6,13 +6,12 @@ import java.util.UUID;
  * @author GooliangYoung
  */
 public class UUIDUtils {
-    public static String uuid() {
-        String s = UUID.randomUUID().toString();
-        String uuid = s.replace("-", "");
-        return uuid;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(UUIDUtils.uuid());
+    /**
+     * 获取36位UUID
+     *
+     * @return UUID
+     */
+    public static String uuid36() {
+        return UUID.randomUUID().toString();
     }
 }

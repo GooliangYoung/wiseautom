@@ -56,6 +56,7 @@ public class SysUser implements Serializable {
      */
     private List<Long> roleIdList;
     private String roleId;
+    private String roleName;
     /**
      * 创建者ID
      */
@@ -219,11 +220,20 @@ public class SysUser implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     /**
      * 获取：创建时间
      *
      * @return Date
      */
+
     public Date getCreateTime() {
         return createTime;
     }

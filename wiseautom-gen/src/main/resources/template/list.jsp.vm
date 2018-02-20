@@ -33,18 +33,18 @@
         </button>
         </shiro:hasPermission>
         <shiro:hasPermission name="${pathName}:update">
-        <button class="layui-btn" onclick="editPage('commparaTable','/${pathName}/edit')">
+        <button class="layui-btn" onclick="editPage('${classname}Table','/${pathName}/edit')">
             <i class="fa fa-pencil-square-o">&nbsp;</i>修改
         </button>
-         <button class="layui-btn layui-btn-green" onclick="updateState('批量启用','commparaTable','/${pathName}/enable')">
+         <button class="layui-btn layui-btn-green" onclick="updateState('批量启用','${classname}Table','/${pathName}/enable')">
             <i class="fa fa-check-square-o">&nbsp;</i>启用
         </button>
-        <button class="layui-btn  layui-btn-danger" onclick="updateState('批量禁用','commparaTable','/${pathName}/limit')">
+        <button class="layui-btn  layui-btn-danger" onclick="updateState('批量禁用','${classname}Table','/${pathName}/limit')">
             <i class="fa fa-expeditedssl">&nbsp;</i>禁用
         </button>
         </shiro:hasPermission>
         <shiro:hasPermission name="${pathName}:delete">
-         <button class="layui-btn layui-btn-delete" onclick="deleteBatch('批量删除','commparaTable','/${pathName}/delete');">
+         <button class="layui-btn layui-btn-delete" onclick="deleteBatch('批量删除','${classname}Table','/${pathName}/delete');">
             <i class="fa fa-trash-o">&nbsp;</i>删除
         </button>
         </shiro:hasPermission>
@@ -71,7 +71,7 @@
             #end
             <!--isPrimary：渲染列-->
             <th width="10%" param="{name:'state',codeName:'state',render:'Render.customState'}">状态</th>
-            <th width="10%" param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete'}">操作</th>
+            <th width="10%" param="{operate:'true',buttons:'Render.info,Render.edit,Render.delete'}">操作</th>
         </tr>
         </thead>
     </table>

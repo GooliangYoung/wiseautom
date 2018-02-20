@@ -64,11 +64,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void save(SysUser user) {
         user.setCreateTime(new Date());
         //sha256加密
-        user.setPassword(new Sha256Hash(user.getPassword()).toHex());
+        user.setPassword(new Sha256Hash("Wiseautom").toHex());
         sysUserDao.save(user);
 
         //检查角色是否越权
@@ -79,7 +79,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void update(SysUser user) {
         if (StringUtils.isBlank(user.getPassword())) {
             user.setPassword(null);
@@ -96,14 +96,14 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteBatch(Long[] userId) {
         sysUserDao.deleteBatch(userId);
     }
 
     @Override
     public int updatePassword(Long userId, String password, String newPassword) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         map.put("userId", userId);
         map.put("password", password);
         map.put("newPassword", newPassword);
@@ -114,7 +114,7 @@ public class SysUserServiceImpl implements SysUserService {
     public void initPassword(Long[] userIds) {
         for (long userId : userIds) {
             SysUser user = queryObject(userId);
-            user.setPassword(new Sha256Hash("123456").toHex());
+            user.setPassword(new Sha256Hash("Wiseautom").toHex());
             sysUserDao.update(user);
         }
     }

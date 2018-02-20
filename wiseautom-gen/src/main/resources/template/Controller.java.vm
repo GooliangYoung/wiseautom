@@ -6,6 +6,7 @@ import com.wiseautom.enumresource.StateEnum;
 import com.wiseautom.annotation.SysLog;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,6 @@ import ${package}.utils.R;
  * ${comments}
  * 
  * @author ${author}
- * @email ${email}
  * @date ${datetime}
  */
 @Controller
@@ -70,12 +70,12 @@ public class ${className}Controller {
 	/**
 	 * 信息
 	 */
-    @ResponseBody
     @RequestMapping("/info/{${pk.attrname}}")
     @RequiresPermissions("${pathName}:info")
-    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+    public String info(Model model, @PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
         ${className} ${classname} = ${classname}Service.get(${pk.attrname});
-        return R.ok().put("${classname}", ${classname});
+        model.addAttribute("model",${classname});
+        return "${pathName}/info.jsp";
     }
 
     /**

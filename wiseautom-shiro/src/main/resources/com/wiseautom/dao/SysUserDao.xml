@@ -7,11 +7,14 @@
 	</select>
 	
 	<select id="queryList" resultType="com.wiseautom.entity.SysUser">
-		select * from sys_user 
+		SELECT
+		t.*,
+		b.role_name
+		FROM
+		sys_user t
+		LEFT JOIN sys_user_role a ON t.user_id = a.user_id
+		LEFT JOIN sys_role b ON a.role_id = b.role_id
 		<where>
-			<if test="createUserId != null">
-				and `create_user_id` = #{createUserId} 
-			</if>
 			<if test="username != null and username.trim() != ''">
 				and `username` like concat('%',#{username},'%') 
 			</if>

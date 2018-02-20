@@ -13,9 +13,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @author GooliangYoung
+ */
 @Service("organizeService")
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class OrganizeServiceImpl implements OrganizeService {
     @Autowired
     private OrganizeDao organizeDao;
@@ -41,8 +43,10 @@ public class OrganizeServiceImpl implements OrganizeService {
         if (StringUtil.isEmpty(organize.getParentOrgId())) {
             organize.setLevelOrg(organize.getOrgId());
         } else {
-            Organize pOrganize = organizeDao.queryObject(organize.getParentOrgId());
-            organize.setLevelOrg(pOrganize.getLevelOrg() + "," + organize.getOrgCode());
+            if (null != organize.getParentOrgId()) {
+                Organize pOrganize = organizeDao.queryObject(organize.getParentOrgId());
+                organize.setLevelOrg(pOrganize.getLevelOrg() + "," + organize.getOrgCode());
+            }
         }
         organize.setInDate(new Date());
         organizeDao.save(organize);

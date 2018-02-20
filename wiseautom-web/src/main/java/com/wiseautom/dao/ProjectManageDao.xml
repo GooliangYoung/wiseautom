@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wiseautom.dao.ProjectManageDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.wiseautom.entity.ProjectManage" id="projectManageMap">
+        <result property="objId" column="obj_id"/>
+        <result property="projectCode" column="project_code"/>
+        <result property="projectName" column="project_name"/>
+        <result property="projectOffer" column="project_offer"/>
+        <result property="projectOfferCn" column="project_offer_cn"/>
+        <result property="projectPayments" column="project_payments"/>
+        <result property="projectPaymentsCn" column="project_payments_cn"/>
+        <result property="projectPlanStartTime" column="project_plan_start_time"/>
+        <result property="projectStartTime" column="project_start_time"/>
+        <result property="projectPlanEndTime" column="project_plan_end_time"/>
+        <result property="projectEndTime" column="project_end_time"/>
+        <result property="projectStatus" column="project_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <select id="get" resultType="com.wiseautom.entity.ProjectManage">
+		select * from wam_project_manage where obj_id = #{value}
+	</select>
+
+    <select id="queryByProjectCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from wam_project_manage where project_code = #{projectCode}
+    </select>
+
+    <select id="getList" resultType="com.wiseautom.entity.ProjectManage">
+        select * from wam_project_manage t
+        <include refid="where_clause"/>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by obj_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(*) from wam_project_manage t
+        <include refid="where_clause"/>
+    </select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="objId != null and objId != ''">and t.obj_id = #{objId}</if>
+            <if test="objIdVague != null and objIdVague != ''">and t.obj_id like concat('%',#{objIdVague},'%')</if>
+            <if test="projectCode != null and projectCode != ''">and t.project_code = #{projectCode}</if>
+            <if test="projectCodeVague != null and projectCodeVague != ''">and t.project_code like
+                concat('%',#{projectCodeVague},'%')
+            </if>
+            <if test="projectName != null and projectName != ''">and t.project_name = #{projectName}</if>
+            <if test="projectNameVague != null and projectNameVague != ''">and t.project_name like
+                concat('%',#{projectNameVague},'%')
+            </if>
+            <if test="projectOffer != null and projectOffer != ''">and t.project_offer = #{projectOffer}</if>
+            <if test="projectOfferVague != null and projectOfferVague != ''">and t.project_offer like
+                concat('%',#{projectOfferVague},'%')
+            </if>
+            <if test="projectOfferCn != null and projectOfferCn != ''">and t.project_offer_cn = #{projectOfferCn}</if>
+            <if test="projectOfferCnVague != null and projectOfferCnVague != ''">and t.project_offer_cn like
+                concat('%',#{projectOfferCnVague},'%')
+            </if>
+            <if test="projectPayments != null and projectPayments != ''">and t.project_payments = #{projectPayments}
+            </if>
+            <if test="projectPaymentsVague != null and projectPaymentsVague != ''">and t.project_payments like
+                concat('%',#{projectPaymentsVague},'%')
+            </if>
+            <if test="projectPaymentsCn != null and projectPaymentsCn != ''">and t.project_payments_cn =
+                #{projectPaymentsCn}
+            </if>
+            <if test="projectPaymentsCnVague != null and projectPaymentsCnVague != ''">and t.project_payments_cn like
+                concat('%',#{projectPaymentsCnVague},'%')
+            </if>
+            <if test="projectPlanStartTime != null and projectPlanStartTime != ''">and t.project_plan_start_time =
+                #{projectPlanStartTime}
+            </if>
+            <if test="projectPlanStartTimeVague != null and projectPlanStartTimeVague != ''">and
+                t.project_plan_start_time like concat('%',#{projectPlanStartTimeVague},'%')
+            </if>
+            <if test="projectStartTime != null and projectStartTime != ''">and t.project_start_time =
+                #{projectStartTime}
+            </if>
+            <if test="projectStartTimeVague != null and projectStartTimeVague != ''">and t.project_start_time like
+                concat('%',#{projectStartTimeVague},'%')
+            </if>
+            <if test="projectPlanEndTime != null and projectPlanEndTime != ''">and t.project_plan_end_time =
+                #{projectPlanEndTime}
+            </if>
+            <if test="projectPlanEndTimeVague != null and projectPlanEndTimeVague != ''">and t.project_plan_end_time
+                like concat('%',#{projectPlanEndTimeVague},'%')
+            </if>
+            <if test="projectEndTime != null and projectEndTime != ''">and t.project_end_time = #{projectEndTime}</if>
+            <if test="projectEndTimeVague != null and projectEndTimeVague != ''">and t.project_end_time like
+                concat('%',#{projectEndTimeVague},'%')
+            </if>
+            <if test="projectStatus != null and projectStatus != ''">and t.project_status = #{projectStatus}</if>
+            <if test="projectStatusVague != null and projectStatusVague != ''">and t.project_status like
+                concat('%',#{projectStatusVague},'%')
+            </if>
+            <if test="createTime != null and createTime != ''">and t.create_time = #{createTime}</if>
+            <if test="createTimeVague != null and createTimeVague != ''">and t.create_time like
+                concat('%',#{createTimeVague},'%')
+            </if>
+            <if test="remark != null and remark != ''">and t.remark = #{remark}</if>
+            <if test="remarkVague != null and remarkVague != ''">and t.remark like concat('%',#{remarkVague},'%')</if>
+        </where>
+    </sql>
+
+    <insert id="save" parameterType="com.wiseautom.entity.ProjectManage">
+		insert into wam_project_manage
+		(
+			`obj_id`, 
+			`project_code`, 
+			`project_name`, 
+			`project_offer`, 
+			`project_offer_cn`, 
+			`project_payments`, 
+			`project_payments_cn`, 
+			`project_plan_start_time`, 
+			`project_start_time`, 
+			`project_plan_end_time`, 
+			`project_end_time`, 
+			`project_status`, 
+			`create_time`, 
+			`remark`
+		)
+		values
+		(
+			#{objId}, 
+			#{projectCode}, 
+			#{projectName}, 
+			#{projectOffer}, 
+			#{projectOfferCn}, 
+			#{projectPayments}, 
+			#{projectPaymentsCn}, 
+			#{projectPlanStartTime}, 
+			#{projectStartTime}, 
+			#{projectPlanEndTime}, 
+			#{projectEndTime}, 
+			#{projectStatus}, 
+			#{createTime}, 
+			#{remark}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.wiseautom.entity.ProjectManage">
+        update wam_project_manage
+        <set>
+            <if test="projectCode != null">`project_code` = #{projectCode},</if>
+            <if test="projectName != null">`project_name` = #{projectName},</if>
+            <if test="projectOffer != null">`project_offer` = #{projectOffer},</if>
+            <if test="projectOfferCn != null">`project_offer_cn` = #{projectOfferCn},</if>
+            <if test="projectPayments != null">`project_payments` = #{projectPayments},</if>
+            <if test="projectPaymentsCn != null">`project_payments_cn` = #{projectPaymentsCn},</if>
+            <if test="projectPlanStartTime != null">`project_plan_start_time` = #{projectPlanStartTime},</if>
+            <if test="projectStartTime != null">`project_start_time` = #{projectStartTime},</if>
+            <if test="projectPlanEndTime != null">`project_plan_end_time` = #{projectPlanEndTime},</if>
+            <if test="projectEndTime != null">`project_end_time` = #{projectEndTime},</if>
+            <if test="projectStatus != null">`project_status` = #{projectStatus},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="remark != null">`remark` = #{remark}</if>
+        </set>
+        where obj_id = #{objId}
+    </update>
+
+    <delete id="delete">
+		delete from wam_project_manage where obj_id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from wam_project_manage where obj_id in
+        <foreach item="objId" collection="array" open="(" separator="," close=")">
+            #{objId}
+        </foreach>
+    </delete>
+
+</mapper>

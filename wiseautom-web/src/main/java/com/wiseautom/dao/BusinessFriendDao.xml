@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wiseautom.dao.BusinessFriendDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.wiseautom.entity.BusinessFriend" id="businessFriendMap">
+        <result property="objId" column="obj_id"/>
+        <result property="friendName" column="friend_name"/>
+        <result property="friendPhone" column="friend_phone"/>
+        <result property="friendEmail" column="friend_email"/>
+        <result property="friendAddress" column="friend_address"/>
+        <result property="friendCompany" column="friend_company"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+	<select id="get" resultType="com.wiseautom.entity.BusinessFriend">
+		select * from wam_business_friend where obj_id = #{value}
+	</select>
+
+	<select id="getList" resultType="com.wiseautom.entity.BusinessFriend">
+		select * from wam_business_friend t <include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by obj_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="getCount" resultType="int">
+		select count(*) from wam_business_friend t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="objId != null and objId != ''"> and t.obj_id = #{objId} </if>
+    		<if test="objIdVague != null and objIdVague != ''"> and t.obj_id like concat('%',#{objIdVague},'%') </if>
+            <if test="friendName != null and friendName != ''"> and t.friend_name = #{friendName} </if>
+    		<if test="friendNameVague != null and friendNameVague != ''"> and t.friend_name like concat('%',#{friendNameVague},'%') </if>
+            <if test="friendPhone != null and friendPhone != ''"> and t.friend_phone = #{friendPhone} </if>
+    		<if test="friendPhoneVague != null and friendPhoneVague != ''"> and t.friend_phone like concat('%',#{friendPhoneVague},'%') </if>
+            <if test="friendEmail != null and friendEmail != ''"> and t.friend_email = #{friendEmail} </if>
+    		<if test="friendEmailVague != null and friendEmailVague != ''"> and t.friend_email like concat('%',#{friendEmailVague},'%') </if>
+            <if test="friendAddress != null and friendAddress != ''"> and t.friend_address = #{friendAddress} </if>
+    		<if test="friendAddressVague != null and friendAddressVague != ''"> and t.friend_address like concat('%',#{friendAddressVague},'%') </if>
+            <if test="friendCompany != null and friendCompany != ''"> and t.friend_company = #{friendCompany} </if>
+    		<if test="friendCompanyVague != null and friendCompanyVague != ''"> and t.friend_company like concat('%',#{friendCompanyVague},'%') </if>
+            <if test="remark != null and remark != ''"> and t.remark = #{remark} </if>
+    		<if test="remarkVague != null and remarkVague != ''"> and t.remark like concat('%',#{remarkVague},'%') </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="com.wiseautom.entity.BusinessFriend">
+		insert into wam_business_friend
+		(
+			`obj_id`, 
+			`friend_name`, 
+			`friend_phone`, 
+			`friend_email`, 
+			`friend_address`, 
+			`friend_company`, 
+			`remark`
+		)
+		values
+		(
+			#{objId}, 
+			#{friendName}, 
+			#{friendPhone}, 
+			#{friendEmail}, 
+			#{friendAddress}, 
+			#{friendCompany}, 
+			#{remark}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.wiseautom.entity.BusinessFriend">
+		update wam_business_friend 
+		<set>
+			<if test="friendName != null">`friend_name` = #{friendName}, </if>
+			<if test="friendPhone != null">`friend_phone` = #{friendPhone}, </if>
+			<if test="friendEmail != null">`friend_email` = #{friendEmail}, </if>
+			<if test="friendAddress != null">`friend_address` = #{friendAddress}, </if>
+			<if test="friendCompany != null">`friend_company` = #{friendCompany}, </if>
+			<if test="remark != null">`remark` = #{remark}</if>
+		</set>
+		where obj_id = #{objId}
+	</update>
+	
+	<delete id="delete">
+		delete from wam_business_friend where obj_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from wam_business_friend where obj_id in 
+		<foreach item="objId" collection="array" open="(" separator="," close=")">
+			#{objId}
+		</foreach>
+	</delete>
+
+</mapper>

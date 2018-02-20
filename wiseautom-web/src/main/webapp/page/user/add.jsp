@@ -1,9 +1,3 @@
-<!--
-* 添加页面
-* @author chenyi
-* @email 228112142@QQ.com
-* @date 2017-06-27 10:40:56
-*-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,16 +11,9 @@
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-normal">
                 <input type="text" name="username" value="" lay-verify="required|username" placeholder="请输入用户名"
-                      autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">密码</label>--%>
-            <%--<div class="layui-input-normal">--%>
-                <%--<input type="password" name="password" value="" lay-verify="required" placeholder="请输入密码"--%>
-                       <%--autocomplete="off" class="layui-input">--%>
-            <%--</div>--%>
-        <%--</div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-normal">
@@ -44,11 +31,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-normal">
-
                 <input value="" id="demo"
                        cyType="treeTool" cyProps="url:'/organize/select',name:'orgId'"
                        placeholder="请选择所属部门" class="layui-input"/>
-
             </div>
         </div>
 
@@ -63,7 +48,6 @@
             <div cyType="radioTool" cyProps="enumName:'StateEnum'" name="state"
                  value="1" class="layui-input-inline"></div>
         </div>
-
 
         <div class="page-footer">
             <div class="btn-list">

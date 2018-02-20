@@ -5,7 +5,6 @@ import com.wiseautom.entity.Organize;
 import com.wiseautom.enumresource.StateEnum;
 import com.wiseautom.enumresource.TopMenuEnum;
 import com.wiseautom.service.OrganizeService;
-import com.wiseautom.service.SysMenuService;
 import com.wiseautom.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,6 @@ import java.util.Map;
 public class OrganizeController {
     @Autowired
     private OrganizeService organizeService;
-    @Autowired
-    private SysMenuService sysMenuService;
 
     /**
      * 列表
@@ -73,14 +70,6 @@ public class OrganizeController {
 
         List<Organize> organizeList = organizeService.getList();
 
-        //添加顶级菜单
-        Organize root = new Organize();
-
-        root.setOrgId(TopMenuEnum.TopOrg.getCode());
-        root.setOrgName(TopMenuEnum.TopOrg.getDesc());
-        root.setParentOrgId("-1");
-        root.setOpen(true);
-        organizeList.add(root);
         List<ZtreeBean> ztreeBeans = new ArrayList<>();
         for (Organize organize : organizeList) {
             ZtreeBean tree = new ZtreeBean();

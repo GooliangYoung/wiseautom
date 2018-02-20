@@ -37,11 +37,6 @@ public class SysRoleController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:role:list")
     public R list(@RequestParam Map<String, Object> params) {
-        //如果不是超级管理员，则只查询自己创建的角色列表
-        if (getUserId() != Constant.SUPER_ADMIN) {
-            params.put("createUserId", getUserId());
-        }
-
         //查询列表数据
         Query query = new Query(params);
         List<SysRole> list = sysRoleService.queryList(query);
@@ -80,10 +75,6 @@ public class SysRoleController extends AbstractController {
     @RequiresPermissions("sys:user:list")
     public R findAll() {
         Map<String, Object> map = new HashMap<>(1);
-        //如果不是超级管理员，则只查询自己所拥有的角色列表
-        if (getUserId() != Constant.SUPER_ADMIN) {
-            map.put("createUserId", getUserId());
-        }
         List<SysRole> list = sysRoleService.queryList(map);
         List<EnumBean> values = new ArrayList<>();
         for (SysRole role : list) {
@@ -105,10 +96,6 @@ public class SysRoleController extends AbstractController {
     public R select() {
         Map<String, Object> map = new HashMap<>(1);
 
-        //如果不是超级管理员，则只查询自己所拥有的角色列表
-        if (getUserId() != Constant.SUPER_ADMIN) {
-            map.put("createUserId", getUserId());
-        }
         List<SysRole> list = sysRoleService.queryList(map);
 
         return R.ok().put("list", list);
@@ -148,7 +135,6 @@ public class SysRoleController extends AbstractController {
         }
         role.setCreateUserId(getUserId());
         sysRoleService.save(role);
-
         return R.ok();
     }
 
@@ -161,10 +147,8 @@ public class SysRoleController extends AbstractController {
     @RequiresPermissions("sys:role:update")
     public R update(@RequestBody SysRole role) {
         ValidatorUtils.validateEntity(role);
-
         role.setCreateUserId(getUserId());
         sysRoleService.update(role);
-
         return R.ok();
     }
 
@@ -176,10 +160,7 @@ public class SysRoleController extends AbstractController {
     @RequestMapping("/delete")
     @RequiresPermissions("sys:role:delete")
     public R delete(@RequestBody Long[] roleIds) {
-
         sysRoleService.deleteBatch(roleIds);
-
-
         return R.ok();
     }
 }
