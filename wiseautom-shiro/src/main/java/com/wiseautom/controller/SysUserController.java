@@ -95,9 +95,6 @@ public class SysUserController extends AbstractController {
     @SysLog("修改密码")
     @RequestMapping("/password")
     public R password(String password, String newPassword) {
-        if (getUserId() == 1) {
-            throw new RRException("系统管理员不可修改密码");
-        }
         Assert.isBlank(newPassword, "新密码不为能空");
 
         //sha256加密
@@ -195,9 +192,6 @@ public class SysUserController extends AbstractController {
     @RequestMapping("/initPassword")
     @RequiresPermissions("sys:user:list")
     public R initPassword(@RequestBody Long[] userIds) {
-        if (ArrayUtils.contains(userIds, 1L)) {
-            return R.error("系统管理员不能初始化密码");
-        }
         sysUserService.initPassword(userIds);
 
         return R.ok();
