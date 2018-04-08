@@ -147,7 +147,7 @@ function notice() {
         moveType: 1 //拖拽模式，0或者1
         ,
         content: ['<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">'
-            , '1.为防止网友误删数据,已启用测试账号<br><br>'
+            , '欢迎您使用睿产智造项目管理系统<br><br>'
             , '&nbsp;&nbsp;&nbsp;</div>'].join("")
         ,
         success: function (layero) {
