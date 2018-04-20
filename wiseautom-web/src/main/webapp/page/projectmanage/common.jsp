@@ -5,8 +5,6 @@
 * @date 2018-02-18 14:08:39
 *-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="layui-form-item">
     <label class="layui-form-label">项目编号<span class="span_must">*</span></label>
