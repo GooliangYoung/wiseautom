@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.wiseautom.enumresource.StateEnum;
 import com.wiseautom.annotation.SysLog;
 import com.wiseautom.util.UUIDUtils;
@@ -78,6 +80,7 @@ public class ProjectPaymentDetialController {
     public String info(Model model, @PathVariable("objId") String objId) {
         ProjectPaymentDetial projectPaymentDetial = projectPaymentDetialService.get(objId);
         model.addAttribute("model", projectPaymentDetial);
+        model.addAttribute("paymentDate", DateUtil.format(projectPaymentDetial.getPaymentDate(), DatePattern.NORM_DATETIME_PATTERN));
         return "projectpaymentdetial/info.jsp";
     }
 

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.wiseautom.enumresource.StateEnum;
 import com.wiseautom.annotation.SysLog;
 import com.wiseautom.util.UUIDUtils;
@@ -67,6 +69,10 @@ public class ProjectManageController {
     public String edit(Model model, @PathVariable("id") String id) {
         ProjectManage projectManage = projectManageService.get(id);
         model.addAttribute("model", projectManage);
+        model.addAttribute("projectPlanStartTime", DateUtil.format(projectManage.getProjectPlanStartTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectStartTime", DateUtil.format(projectManage.getProjectStartTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectPlanEndTime", DateUtil.format(projectManage.getProjectPlanEndTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectEndTime", DateUtil.format(projectManage.getProjectEndTime(), DatePattern.NORM_DATE_PATTERN));
         return "projectmanage/edit.jsp";
     }
 
@@ -78,6 +84,11 @@ public class ProjectManageController {
     public String info(Model model, @PathVariable("objId") String objId) {
         ProjectManage projectManage = projectManageService.get(objId);
         model.addAttribute("model", projectManage);
+        model.addAttribute("projectPlanStartTime", DateUtil.format(projectManage.getProjectPlanStartTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectStartTime", DateUtil.format(projectManage.getProjectStartTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectPlanEndTime", DateUtil.format(projectManage.getProjectPlanEndTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("projectEndTime", DateUtil.format(projectManage.getProjectEndTime(), DatePattern.NORM_DATE_PATTERN));
+        model.addAttribute("createTime", DateUtil.format(projectManage.getCreateTime(), DatePattern.NORM_DATETIME_PATTERN));
         return "projectmanage/info.jsp";
     }
 

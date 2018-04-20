@@ -31,7 +31,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-label-left">回款日期<span class="label_span">:</span></label>
-            <label class="layui-label-right">${model.paymentDate}</label>
+            <label class="layui-label-right">${paymentDate}</label>
         </div>
     </form>
 </div>
